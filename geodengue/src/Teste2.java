@@ -47,7 +47,7 @@ public class Teste2 {
                 new UsernamePasswordCredentials(userName, password));
 		
 //		String projectDirPath = System.getProperty("user.dir");
-		File file = new File("wfs_files/insertAgente.xml");
+		File file = new File("wfs_files/insertPonto.xml");
 		FileEntity entity = new FileEntity(file, "text/xml");
 		
 		String httpPost = properties.getProperty(PROP_POST);

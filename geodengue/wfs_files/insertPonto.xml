@@ -8,10 +8,12 @@
     <geodengue:ponto>
       <geodengue:geometria>
            <gml:Point srsName="http://www.opengis.net/gml/srs/epsg.xml#4326">
-              <gml:coordinates decimal="." cs="," ts=" ">-7.0, -35.0</gml:coordinates>
+              <gml:coordinates decimal="." cs="," ts=" ">
+                  -7.0,-35.0
+              </gml:coordinates>
          </gml:Point>
       </geodengue:geometria>
-      <geodengue:tipo>0</geodengue:tipo>
+      <geodengue:tipo>1</geodengue:tipo>
     </geodengue:ponto>
   </wfs:Insert>
 </wfs:Transaction>
