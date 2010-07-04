@@ -7,7 +7,7 @@ public class AgenteXMLCreator implements XMLCreator {
             "<gml:LineString srsName=\"http://www.opengis.net/gml/srs/epsg.xml#4326\">" + SEP +
             "<gml:coordinates decimal=\".\" cs=\",\" ts=\" \">" + SEP;
 	
-	private static final String XML_2 = "</gml:coordinates> " + SEP +
+	private static final String XML_2 = SEP + "</gml:coordinates> " + SEP +
             "</gml:LineString>" + SEP +
             "</geodengue:rota>" + SEP +
 	        "<geodengue:areaCobertura>" + SEP +
@@ -16,12 +16,12 @@ public class AgenteXMLCreator implements XMLCreator {
             "<gml:LinearRing>" + SEP +
             "<gml:coordinates decimal=\".\" cs=\",\" ts=\" \">" + SEP;
 	
-	private static final String XML_3 = "</gml:coordinates>" + SEP +
+	private static final String XML_3 = SEP + "</gml:coordinates>" + SEP +
             "</gml:LinearRing>" + SEP +
             "</gml:outerBoundaryIs>" + SEP +
             "</gml:Polygon>" + SEP +
             "</geodengue:areaCobertura>" + SEP +
-            "geodengue:nome>";
+            "<geodengue:nome>";
 	
 	private static final String XML_4 = "</geodengue:nome>" + SEP +
     		"</geodengue:agente>";
@@ -36,6 +36,7 @@ public class AgenteXMLCreator implements XMLCreator {
 		buffer.append(XML_2);
 		buffer.append(polygon);
 		buffer.append(XML_3);
+		buffer.append(nome);
 		buffer.append(XML_4);
 		
 		return buffer.toString();
