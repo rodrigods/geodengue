@@ -42,7 +42,7 @@ public class Facade {
                 new AuthScope(host, Integer.valueOf(port), AuthScope.ANY_REALM), 
                 new UsernamePasswordCredentials(userName, password));
 		
-		File file = new File(xml);
+		//write xml on a file File file = new File(xml);
 		FileEntity entity = new FileEntity(file, HEADER_VALUE);
 		
 		String httpPost = properties.getProperty(PROP_POST);
