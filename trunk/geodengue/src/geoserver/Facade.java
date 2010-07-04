@@ -1,5 +1,7 @@
 package geoserver;
 
+import geoserver.util.FileUtil;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -28,6 +30,10 @@ public class Facade {
 	private static final String HEADER_VALUE = "text/xml";
 	
 	
+	private static final String DEFAULT_FILE_PATH =  
+						"wfs_files" + File.separator + "transaction.xml";
+	
+	
 	public static void insert(String xml) throws IOException {
 		Properties properties = new Properties();
 		properties.load(new FileInputStream(PROPERTIES_PATH));
@@ -42,7 +48,7 @@ public class Facade {
                 new AuthScope(host, Integer.valueOf(port), AuthScope.ANY_REALM), 
                 new UsernamePasswordCredentials(userName, password));
 		
-		//write xml on a file File file = new File(xml);
+		File file = FileUtil.writeXMLToFile(DEFAULT_FILE_PATH, xml);
 		FileEntity entity = new FileEntity(file, HEADER_VALUE);
 		
 		String httpPost = properties.getProperty(PROP_POST);

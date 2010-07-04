@@ -17,13 +17,10 @@ public class Main {
 	public static void main(String[] args) throws ClientProtocolException, IOException {
 		String agenteXML = AgenteXMLCreator.getXML("Rodrigo", "10.71056415,12.8189323 15.70115662,30.95096618", 
 				"1 1, 2 2, 2 1, 1 1");
-		System.out.println("-------------------------------------------------------");
-		System.out.println(agenteXML);
-		System.out.println("-------------------------------------------------------");
-		//String pontoXML = PontoXMLCreator.getXML("-7.0, -35,0", 0);
+		String pontoXML = PontoXMLCreator.getXML("-7.0, -35,0", 1);
 
 		Facade.insert(agenteXML);
-		//Facade.insert(pontoXML);
+		Facade.insert(pontoXML);
 	}
 
 }
