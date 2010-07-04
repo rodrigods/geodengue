@@ -24,7 +24,7 @@
              </gml:outerBoundaryIs>
           </gml:Polygon>
       </geodengue:areaCobertura>
-      <geodengue:nome>Joao Victor</geodengue:nome>
+      <geodengue:nome>Maria Isabel</geodengue:nome>
     </geodengue:agente>
   </wfs:Insert>
 </wfs:Transaction>
