@@ -7,13 +7,13 @@ public class PontoXMLCreator implements XMLCreator {
             "<gml:Point srsName=\"http://www.opengis.net/gml/srs/epsg.xml#4326\">" + SEP +
             "<gml:coordinates decimal=\".\" cs=\",\" ts=\" \">" + SEP;
 	
-	private static final String XML_2 = "</gml:coordinates> " + SEP +
+	private static final String XML_2 =SEP + "</gml:coordinates> " + SEP +
             "</gml:Point>" + SEP +
             "</geodengue:geometria>" + SEP +
 	        "<geodengue:tipo>";
 	
 	private static final String XML_3 = "</geodengue:tipo>" + SEP +
-    		"</geodengue:ponto>";
+    		"</geodengue:ponto>" + SEP;
 	
 	public static String getXML(String ponto, int tipo) {
 		StringBuffer buffer = new StringBuffer();
