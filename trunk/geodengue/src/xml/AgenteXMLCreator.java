@@ -38,6 +38,7 @@ public class AgenteXMLCreator implements XMLCreator {
 		buffer.append(XML_3);
 		buffer.append(nome);
 		buffer.append(XML_4);
+		buffer.append(FOOTER);
 		
 		return buffer.toString();
 	}

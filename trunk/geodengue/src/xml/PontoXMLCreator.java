@@ -24,6 +24,7 @@ public class PontoXMLCreator implements XMLCreator {
 		buffer.append(XML_2);
 		buffer.append(tipo);
 		buffer.append(XML_3);
+		buffer.append(FOOTER);
 		
 		return buffer.toString();
 	}
