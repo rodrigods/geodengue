@@ -16,7 +16,7 @@ import org.apache.http.entity.FileEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
-public class Facade {
+public class Manager {
 	
 	private static final String PROPERTIES_PATH = "geodengue.properties";
 	private static final String PROP_USER = "username";
