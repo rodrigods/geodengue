@@ -1,4 +1,4 @@
-package geoserver.util;
+package br.edu.ufcg.sig.geoserver.util;
 
 import java.io.BufferedWriter;
 import java.io.File;

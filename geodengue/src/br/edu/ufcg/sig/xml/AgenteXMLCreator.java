@@ -1,4 +1,4 @@
-package xml;
+package br.edu.ufcg.sig.xml;
 
 public class AgenteXMLCreator implements XMLCreator {
 	

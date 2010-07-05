@@ -1,6 +1,5 @@
-package geoserver;
+package br.edu.ufcg.sig.geoserver;
 
-import geoserver.util.FileUtil;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,6 +14,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.FileEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+
+import br.edu.ufcg.sig.geoserver.util.FileUtil;
 
 public class Manager {
 	
