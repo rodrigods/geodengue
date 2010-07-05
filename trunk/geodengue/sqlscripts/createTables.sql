@@ -5,7 +5,7 @@ codigo SERIAL,
 tipo INT,
 PRIMARY KEY(codigo));
 
-SELECT AddGeometryColumn('ponto','geometria',4326,'POINT',2);
+SELECT AddGeometryColumn('ponto','geometria',-1,'POINT',2);
 
 -- Agente de Saúde
 
@@ -14,5 +14,5 @@ matricula SERIAL,
 nome varchar(30),
 PRIMARY KEY (matricula));
 
-SELECT AddGeometryColumn('agente','areaCobertura',4326,'POLYGON',2);
-SELECT AddGeometryColumn('agente','rota',4326,'LINESTRING',2);
+SELECT AddGeometryColumn('agente','areaCobertura',-1,'POLYGON',2);
+SELECT AddGeometryColumn('agente','rota',-1,'LINESTRING',2);

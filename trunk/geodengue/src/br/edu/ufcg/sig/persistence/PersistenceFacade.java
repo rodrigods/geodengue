@@ -1,19 +1,18 @@
 package br.edu.ufcg.sig.persistence;
 
 import br.edu.ufcg.sig.persistence.dao.GeoDengueDAO;
-import br.edu.ufcg.sig.persistence.dao.GeoDengueGSDAO;
+import br.edu.ufcg.sig.persistence.dao.GeoDengueJdbcDAO;
 
 public class PersistenceFacade {
 	
-	private GeoDengueDAO insertDAO;
-	private GeoDengueDAO querysDAO;
+	private GeoDengueDAO dao;
 	
 	
 	private static PersistenceFacade instance;
 	
 	
 	private PersistenceFacade() {
-		insertDAO = new GeoDengueGSDAO();
+		dao = new GeoDengueJdbcDAO();
 	}
 	
 	
