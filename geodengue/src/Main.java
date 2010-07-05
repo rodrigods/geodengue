@@ -3,9 +3,9 @@ import java.io.IOException;
 
 import org.apache.http.client.ClientProtocolException;
 
-import br.edu.ufcg.sig.geoserver.Manager;
-import br.edu.ufcg.sig.xml.AgenteXMLCreator;
-import br.edu.ufcg.sig.xml.PontoXMLCreator;
+import br.edu.ufcg.sig.persistence.geoserver.GeoServerManager;
+import br.edu.ufcg.sig.persistence.geoserver.xml.AgenteXMLCreator;
+import br.edu.ufcg.sig.persistence.geoserver.xml.PontoXMLCreator;
 
 
 public class Main {
@@ -20,8 +20,8 @@ public class Main {
 				"1 1, 2 2, 2 1, 1 1");
 		String pontoXML = PontoXMLCreator.getXML("-7.0,-35,0", 1);
 
-		Manager.insert(agenteXML);
-		Manager.insert(pontoXML);
+		GeoServerManager.insert(agenteXML);
+		GeoServerManager.insert(pontoXML);
 	}
 
 }
