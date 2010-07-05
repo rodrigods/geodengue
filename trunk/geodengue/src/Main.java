@@ -1,4 +1,4 @@
-import geoserver.Facade;
+import geoserver.Manager;
 
 import java.io.IOException;
 
@@ -19,8 +19,8 @@ public class Main {
 				"1 1, 2 2, 2 1, 1 1");
 		String pontoXML = PontoXMLCreator.getXML("-7.0,-35,0", 1);
 
-		Facade.insert(agenteXML);
-		Facade.insert(pontoXML);
+		Manager.insert(agenteXML);
+		Manager.insert(pontoXML);
 	}
 
 }
