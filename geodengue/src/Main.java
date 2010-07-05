@@ -1,7 +1,11 @@
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import org.apache.http.client.ClientProtocolException;
+import org.postgis.LinearRing;
+import org.postgis.Point;
+import org.postgis.Polygon;
 
 import br.edu.ufcg.sig.persistence.geoserver.GeoServerManager;
 import br.edu.ufcg.sig.persistence.geoserver.xml.AgenteXMLCreator;
@@ -14,14 +18,29 @@ public class Main {
 	 * @param args
 	 * @throws IOException 
 	 * @throws ClientProtocolException 
+	 * @throws SQLException 
 	 */
-	public static void main(String[] args) throws ClientProtocolException, IOException {
-		String agenteXML = AgenteXMLCreator.getXML("Rodrigo", "10.71056415,12.8189323 15.70115662,30.95096618", 
+	public static void main(String[] args) throws ClientProtocolException, IOException, SQLException {
+		/*String agenteXML = AgenteXMLCreator.getXML("Rodrigo", "10.71056415,12.8189323 15.70115662,30.95096618", 
 				"1 1, 2 2, 2 1, 1 1");
 		String pontoXML = PontoXMLCreator.getXML("-7.0,-35,0", 1);
 
 		GeoServerManager.insert(agenteXML);
-		GeoServerManager.insert(pontoXML);
+		GeoServerManager.insert(pontoXML);*/
+		
+		
+		Point[] ps = new Point[4];
+		ps[0] = new Point(1, 1);
+		ps[1] = new Point(2, 2);
+		ps[2] = new Point(2, 1);
+		ps[3] = new Point(1, 1);
+		
+		LinearRing[] lrs = new LinearRing[1];
+		lrs[0] = new LinearRing(ps);
+		
+		Polygon polygon = new Polygon(lrs);
+		System.out.println(polygon.getValue());
+		System.out.println(polygon);
 	}
 
 }
