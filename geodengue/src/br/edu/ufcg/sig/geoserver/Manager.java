@@ -19,43 +19,27 @@ import br.edu.ufcg.sig.geoserver.util.FileUtil;
 
 public class Manager {
 	
-	private static final String PROPERTIES_PATH = "geodengue.properties";
-	private static final String PROP_USER = "username";
-	private static final String PROP_HOST = "host";
-	private static final String PROP_PORT = "port";
-	private static final String PROP_PASSWORD = "password";
-	private static final String PROP_POST = "httppost";
-	
-	
-	private static final String HEADER_NAME = "Content-type";
-	private static final String HEADER_VALUE = "text/xml";
-	
-	
-	private static final String DEFAULT_FILE_PATH =  
-						"wfs_files" + File.separator + "transaction.xml";
-	
-	
 	public static void insert(String xml) throws IOException {
 		Properties properties = new Properties();
-		properties.load(new FileInputStream(PROPERTIES_PATH));
+		properties.load(new FileInputStream(ManagerConstants.PROPERTIES_PATH));
 		
-		String host = properties.getProperty(PROP_HOST);
-		String port = properties.getProperty(PROP_PORT);
-		String userName = properties.getProperty(PROP_USER);
-		String password = properties.getProperty(PROP_PASSWORD);
+		String host = properties.getProperty(ManagerConstants.PROP_HOST);
+		String port = properties.getProperty(ManagerConstants.PROP_PORT);
+		String userName = properties.getProperty(ManagerConstants.PROP_USER);
+		String password = properties.getProperty(ManagerConstants.PROP_PASSWORD);
 		
 		DefaultHttpClient httpclient = new DefaultHttpClient();
 		httpclient.getCredentialsProvider().setCredentials(
                 new AuthScope(host, Integer.valueOf(port), AuthScope.ANY_REALM), 
                 new UsernamePasswordCredentials(userName, password));
 		
-		File file = FileUtil.writeXMLToFile(DEFAULT_FILE_PATH, xml);
-		FileEntity entity = new FileEntity(file, HEADER_VALUE);
+		File file = FileUtil.writeXMLToFile(ManagerConstants.DEFAULT_FILE_PATH, xml);
+		FileEntity entity = new FileEntity(file, ManagerConstants.HEADER_VALUE);
 		
-		String httpPost = properties.getProperty(PROP_POST);
+		String httpPost = properties.getProperty(ManagerConstants.PROP_POST);
 		
 		HttpPost httppost = new HttpPost(httpPost);
-		httppost.setHeader(HEADER_NAME, HEADER_VALUE);
+		httppost.setHeader(ManagerConstants.HEADER_NAME, ManagerConstants.HEADER_VALUE);
 		httppost.setEntity(entity);
 
 		HttpResponse response = httpclient.execute(httppost);
