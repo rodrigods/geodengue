@@ -27,14 +27,14 @@ public class AgenteXMLCreator implements XMLCreator {
     		"</geodengue:agente>";
 	
 	
-	public static String getXML(String nome, String lineString, String polygon) {
+	public static String getXML(String nome, String rota, String areaCobertura) {
 		StringBuffer buffer = new StringBuffer();
 		
 		buffer.append(HEADER);
 		buffer.append(XML_1);
-		buffer.append(lineString);
+		buffer.append(rota);
 		buffer.append(XML_2);
-		buffer.append(polygon);
+		buffer.append(areaCobertura);
 		buffer.append(XML_3);
 		buffer.append(nome);
 		buffer.append(XML_4);

@@ -15,12 +15,12 @@ public class PontoXMLCreator implements XMLCreator {
 	private static final String XML_3 = "</geodengue:tipo>" + SEP +
     		"</geodengue:ponto>" + SEP;
 	
-	public static String getXML(String ponto, int tipo) {
+	public static String getXML(String geometria, int tipo) {
 		StringBuffer buffer = new StringBuffer();
 		
 		buffer.append(HEADER);
 		buffer.append(XML_1);
-		buffer.append(ponto);
+		buffer.append(geometria);
 		buffer.append(XML_2);
 		buffer.append(tipo);
 		buffer.append(XML_3);

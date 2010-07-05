@@ -6,10 +6,10 @@ public interface Querys {
 //			" (delictType, locationType, date, delictTime, description, usedArmor, qteVictims, qteRobbers, location)" +
 //			" VALUES(? , ?,to_date(?, 'DD/MM/YYYY'), ?, ?, ?, ?, ?, GeometryFromText(?,-1))";
 	
-	public static final String QUERY_1 = "SELECT p.geometria" + 
+	public static final String QUERY_1 = "SELECT p.*" + 
 										   "FROM ponto p" + 
 										   "WHERE tipo = 0 AND" +
-										   "ST_distance_sphere(p, GeometryFromText(?, 4326)) = X";
+										   "ST_distance_sphere(p, GeometryFromText(?, 4326)) = ?";
 	
 	public static final String QUERY_2 = "SELECT p.geometria, COUNT(*)" +
 										   "FROM ponto p, agente x" +
