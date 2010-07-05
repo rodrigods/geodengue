@@ -7,6 +7,9 @@ import org.postgis.LinearRing;
 import org.postgis.Point;
 import org.postgis.Polygon;
 
+import br.edu.ufcg.sig.beans.Ponto;
+import br.edu.ufcg.sig.beans.PontoType;
+import br.edu.ufcg.sig.persistence.PersistenceFacade;
 import br.edu.ufcg.sig.persistence.geoserver.GeoServerManager;
 import br.edu.ufcg.sig.persistence.geoserver.xml.AgenteXMLCreator;
 import br.edu.ufcg.sig.persistence.geoserver.xml.PontoXMLCreator;
@@ -39,8 +42,13 @@ public class Main {
 		lrs[0] = new LinearRing(ps);
 		
 		Polygon polygon = new Polygon(lrs);
-		System.out.println(polygon.getValue());
-		System.out.println(polygon);
+		
+		Point p = new Point(-7, -35);
+		Ponto ponto = new Ponto();
+		ponto.setLocation(p);
+		ponto.setType(PontoType.FOCO);
+		
+		PersistenceFacade.getInstance().savePonto(ponto);
 	}
 
 }
