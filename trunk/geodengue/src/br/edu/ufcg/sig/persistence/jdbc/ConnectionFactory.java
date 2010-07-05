@@ -22,14 +22,14 @@ public class ConnectionFactory {
     
     public static Connection newConnection() throws SQLException, IOException {
 		Properties properties = new Properties();
-		properties.load(new FileInputStream(JdbcManagerConstants.PROPERTIES_PATH));
+		properties.load(new FileInputStream(JdbcConstants.PROPERTIES_PATH));
 		
         try {
-        	String urlDriver = properties.getProperty(JdbcManagerConstants.PROP_URL_DRIVER);
+        	String urlDriver = properties.getProperty(JdbcConstants.PROP_URL_DRIVER);
             Class.forName( urlDriver ).newInstance();
             
-            String username = properties.getProperty(JdbcManagerConstants.PROP_LOGIN);
-            String password = properties.getProperty(JdbcManagerConstants.PROP_PASSWORD);
+            String username = properties.getProperty(JdbcConstants.PROP_LOGIN);
+            String password = properties.getProperty(JdbcConstants.PROP_PASSWORD);
 
             //Abre conexão
             Connection c = null;
@@ -39,7 +39,7 @@ public class ConnectionFactory {
                 connInfo.put("password", password);
             }
             
-            String urlDB = properties.getProperty(JdbcManagerConstants.PROP_URL_DB);
+            String urlDB = properties.getProperty(JdbcConstants.PROP_URL_DB);
             
             c = DriverManager.getConnection(urlDB, connInfo);            
             
