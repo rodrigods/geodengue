@@ -1,11 +1,12 @@
-import geoserver.Manager;
 
 import java.io.IOException;
 
 import org.apache.http.client.ClientProtocolException;
 
-import xml.AgenteXMLCreator;
-import xml.PontoXMLCreator;
+import br.edu.ufcg.sig.geoserver.Manager;
+import br.edu.ufcg.sig.xml.AgenteXMLCreator;
+import br.edu.ufcg.sig.xml.PontoXMLCreator;
+
 
 public class Main {
 	
