@@ -1,4 +1,4 @@
-package br.edu.ufcg.sig.geoserver.util;
+package br.edu.ufcg.sig.persistence.geoserver.util;
 
 import java.io.BufferedWriter;
 import java.io.File;

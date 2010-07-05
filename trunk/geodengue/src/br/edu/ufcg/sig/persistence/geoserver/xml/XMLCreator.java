@@ -1,4 +1,4 @@
-package br.edu.ufcg.sig.xml;
+package br.edu.ufcg.sig.persistence.geoserver.xml;
 
 public interface XMLCreator {
 	String SEP = System.getProperty("line.separator");

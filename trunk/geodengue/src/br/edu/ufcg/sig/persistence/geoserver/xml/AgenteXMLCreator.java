@@ -1,4 +1,4 @@
-package br.edu.ufcg.sig.xml;
+package br.edu.ufcg.sig.persistence.geoserver.xml;
 
 public class AgenteXMLCreator implements XMLCreator {
 	
