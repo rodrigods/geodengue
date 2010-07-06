@@ -75,4 +75,8 @@ public class PersistenceFacade implements PersistenceFacadeInterface{
 	public List<Point> getPointsInsidePolygon(Polygon polygon) {
 		return this.dao.getPointsInsidePolygon(polygon);
 	}
+	
+	public void deleteAgente(int matricula){
+		this.dao.deleteAgente(matricula);
+	}
 }

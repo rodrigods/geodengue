@@ -17,8 +17,6 @@ public interface PersistenceFacadeInterface {
 	
 	public List<Ponto> focosNaAreaDoAgente(int matricula);
 	
-//	public int qtidadeFocosNaAreaDoAgente(int matricula);
-	
 	public int pessoasContaminadasEmUmRaio(Point p,int x);
 	
 	public int qtdFocosEmUmaRota(int matricula);
@@ -32,4 +30,6 @@ public interface PersistenceFacadeInterface {
 	public double comprimentoDaRotaDoAgente(int matricula);
 	
 	public List<Point> getPointsInsidePolygon(Polygon polygon);
+	
+	public void deleteAgente(int matricula);
 }
