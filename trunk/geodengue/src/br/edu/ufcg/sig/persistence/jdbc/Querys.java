@@ -63,16 +63,25 @@ public interface Querys {
 										   " distance(elim.areaCobertura,a2.areaCobertura) " + 
 										   " AND x.matricula = ? ";	
 	
-	public static final String QUERY_7 = "SELECT ST_area(a.areaCobertura)" +
-										   "FROM agente a" +
-										   "WHERE a.matricula = ?";
+	/**
+	 *  Qual a área da área responsável por um agente de saúde 
+	 */
+	public static final String QUERY_7 = " SELECT area(a.areacobertura) " +
+										   " FROM agente a " +
+										   " WHERE a.matricula = ? ";
 
-	public static final String QUERY_8 = "SELECT ST_length2d (a.rota)" +
-										   "FROM agente a" +
-										   "WHERE a.matricula = ?";
 	
-	public static final String QUERY_9 = "SELECT p.*" +
-										   " FROM ponto p, agente a" +
-										   " WHERE a.matricula = ? AND" +
-										   " Contains(a.geometria, p.geometria)";
+	/**
+	 *  Qual o comprimento da rota seguida pelo agente de saúde para visitar todos os focos da sua área
+	 */
+	public static final String QUERY_8 = " SELECT length(a.rota) " +
+										   " FROM agente a " +
+										   " WHERE a.matricula = ? ";
+	
+	/**
+	 * Recupera os pontos que então dentro de uma geometria dada
+	 */
+	public static final String QUERY_9 = "SELECT p.geometria" +
+										   " FROM ponto p" +
+										   " WHERE contains(GeometryFromText(?, -1), p.geometria)";
 }

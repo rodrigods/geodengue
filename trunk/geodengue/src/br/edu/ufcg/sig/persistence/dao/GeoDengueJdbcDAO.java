@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import org.postgis.PGgeometry;
 import org.postgis.Point;
+import org.postgis.Polygon;
 
 import br.edu.ufcg.sig.beans.Agente;
 import br.edu.ufcg.sig.beans.Ponto;
@@ -69,7 +70,6 @@ public class GeoDengueJdbcDAO implements GeoDengueDAO {
         }
 	}
 
-@Override
 	public List<Ponto> consultaDistanciaDeFocosAUmPonto(Point p1, int x) {
 		List<Ponto> focos = new ArrayList<Ponto>();
 		try {
@@ -103,7 +103,7 @@ public class GeoDengueJdbcDAO implements GeoDengueDAO {
     	return p;
 	}
 
-	@Override
+	
 	public List<Ponto> focosNaAreaDoAgente(int matricula) {
 		List<Ponto> focos = new ArrayList<Ponto>();
 		try {
@@ -128,7 +128,7 @@ public class GeoDengueJdbcDAO implements GeoDengueDAO {
 	}
 
 
-	@Override
+	
 	public int pessoasContaminadasEmUmRaio(Point p, int x) {
 		int counter = 0;
 		try {
@@ -151,7 +151,7 @@ public class GeoDengueJdbcDAO implements GeoDengueDAO {
 	}
 
 
-	@Override
+	
 	public int qtdFocosEmUmaRota(int matricula) {
 		int counter = 0;
 		try {
@@ -171,11 +171,8 @@ public class GeoDengueJdbcDAO implements GeoDengueDAO {
         
 		return counter;
 	}
-
-
-	@Override
+	
 	public double distanciaEntreFocos(Point f1, Point f2) {
-		List<Ponto> focos = new ArrayList<Ponto>();
 		double distancia = 0;
 		try {
             String sql = Querys.QUERY_5; 
@@ -194,25 +191,79 @@ public class GeoDengueJdbcDAO implements GeoDengueDAO {
 		return distancia;
 
 	}
-
-
-	@Override
-	public List<String> responsaveisPelosFocos(int matricula) {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public List<Integer> responsaveisPelosFocos(int matricula) {
+		List<Integer> agentes = new ArrayList<Integer>();
+		try {
+            String sql = Querys.QUERY_6; 
+           
+            PreparedStatement s = dbConn.prepareStatement(sql);      
+            s.setInt(1, matricula);
+            ResultSet rs = s.executeQuery();
+            while(rs.next()){
+            	agentes.add(rs.getInt(1));
+            }
+            s.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } 	
+		return agentes;
 	}
 
-
-	@Override
 	public double areaDoAgente(int matricula) {
-		// TODO Auto-generated method stub
-		return 0;
+		double area = 0;
+		try {
+            String sql = Querys.QUERY_7; 
+           
+            PreparedStatement s = dbConn.prepareStatement(sql);      
+            s.setInt(1, matricula);
+            ResultSet rs = s.executeQuery();
+            while(rs.next()){
+            	area = rs.getDouble(1);
+            }
+            s.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } 	
+		return area;
+	}
+
+	public double comprimentoDaRotaDoAgente(int matricula) {
+		double comprimento = 0;
+		try {
+            String sql = Querys.QUERY_8; 
+           
+            PreparedStatement s = dbConn.prepareStatement(sql);      
+            s.setInt(1, matricula);
+            ResultSet rs = s.executeQuery();
+            while(rs.next()){
+            	comprimento = rs.getDouble(1);
+            }
+            s.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } 	
+		return comprimento;
 	}
 
 
 	@Override
-	public double comprimentoDaRotaDoAgente(int matricula) {
-		// TODO Auto-generated method stub
-		return 0;
+	public List<Point> getPointsInsidePolygon(Polygon polygon) {
+		List<Point> pontos = new ArrayList<Point>();
+		try {
+            String sql = Querys.QUERY_9; 
+           
+            PreparedStatement s = dbConn.prepareStatement(sql);      
+            s.setString(1, polygon.toString());
+            ResultSet rs = s.executeQuery();
+            while(rs.next()){
+            	PGgeometry pg = (PGgeometry)(rs.getObject(1));
+            	pontos.add(getPointByPGgeometry(pg));
+            }
+            s.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } 	
+		return pontos;
 	}
 }
