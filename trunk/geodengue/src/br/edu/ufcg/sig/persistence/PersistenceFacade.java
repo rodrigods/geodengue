@@ -64,8 +64,7 @@ public class PersistenceFacade implements PersistenceFacadeInterface{
 
 	
 	public double distanciaEntreFocos(Point f1, Point f2) {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.dao.distanciaEntreFocos(f1, f2);
 	}
 
 
