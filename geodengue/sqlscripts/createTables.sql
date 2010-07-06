@@ -10,7 +10,8 @@ SELECT AddGeometryColumn('ponto','geometria',-1,'POINT',2);
 -- Agente de Saúde
 
 CREATE TABLE agente (
-matricula SERIAL,
+codigo SERIAL,
+matricula INT,
 nome varchar(30),
 PRIMARY KEY (matricula));
 
