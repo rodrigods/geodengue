@@ -68,18 +68,8 @@ public class GeoDengueJdbcDAO implements GeoDengueDAO {
             e.printStackTrace();
         }
 	}
-	
-	private Point getPointByPGgeometry(PGgeometry pg) throws SQLException{		
-    	String aux[] = pg.toString().split(" ");
-    	String coordinates = aux[0].substring(6) + " " + aux[1].substring(0, aux[1].length() - 1);
-    	//creates a point with the string:
-    	//
-    	Point p = new Point(coordinates); 
-    	return p;
-	}
 
-
-	@Override
+@Override
 	public List<Ponto> consultaDistanciaDeFocosAUmPonto(Point p1, int x) {
 		List<Ponto> focos = new ArrayList<Ponto>();
 		try {
@@ -102,6 +92,15 @@ public class GeoDengueJdbcDAO implements GeoDengueDAO {
             e.printStackTrace();
         } 	
 		return focos;
+	}
+
+	private Point getPointByPGgeometry(PGgeometry pg) throws SQLException{		
+    	String aux[] = pg.toString().split(" ");
+    	String coordinates = aux[0].substring(6) + " " + aux[1].substring(0, aux[1].length() - 1);
+    	//creates a point with the string:
+    	//
+    	Point p = new Point(coordinates); 
+    	return p;
 	}
 
 	@Override
@@ -176,8 +175,24 @@ public class GeoDengueJdbcDAO implements GeoDengueDAO {
 
 	@Override
 	public double distanciaEntreFocos(Point f1, Point f2) {
-		// TODO Auto-generated method stub
-		return 0;
+		List<Ponto> focos = new ArrayList<Ponto>();
+		double distancia = 0;
+		try {
+            String sql = Querys.QUERY_5; 
+           
+            PreparedStatement s = dbConn.prepareStatement(sql);      
+            s.setString(1, f1.toString());
+            s.setString(2, f2.toString());
+            ResultSet rs = s.executeQuery();
+            while(rs.next()){
+            	distancia = rs.getDouble(1);
+            }
+            s.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } 	
+		return distancia;
+
 	}
 
 
