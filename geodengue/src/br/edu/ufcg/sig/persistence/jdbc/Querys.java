@@ -7,8 +7,8 @@ public interface Querys {
 			" VALUES(?, GeometryFromText(?,-1))";
 	
 	public static final String SAVE_AGENTE = "INSERT INTO agente" +
-			" (nome, areaCobertura, rota)" +
-			" VALUES(?, GeometryFromText(?,-1), GeometryFromText(?,-1))";
+			" (matricula, nome, areaCobertura, rota)" +
+			" VALUES(?, ?, GeometryFromText(?,-1), GeometryFromText(?,-1))";
 	
 	public static final String QUERY_1 = "SELECT p.*" + 
 										   "FROM ponto p" + 

@@ -8,6 +8,7 @@ public class Agente {
 	private LineString rota;
 	private Polygon areaCobertura;
 	private String nome;
+	private int matricula;
 
 	
 	public LineString getRota() {
@@ -32,6 +33,14 @@ public class Agente {
 
 	public String getNome() {
 		return nome;
+	}
+
+	public void setMatricula(int matricula) {
+		this.matricula = matricula;
+	}
+
+	public int getMatricula() {
+		return matricula;
 	}
 	
 }
