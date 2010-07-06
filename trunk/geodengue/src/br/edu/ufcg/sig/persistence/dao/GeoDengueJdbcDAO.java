@@ -30,6 +30,7 @@ public class GeoDengueJdbcDAO implements GeoDengueDAO {
            
             PreparedStatement s = dbConn.prepareStatement(sql);
             s.setString(1, agente.getNome());
+            s.setInt(2, agente.getMatricula());
             s.setString(2, agente.getRota().toString());
             s.setString(3, agente.getAreaCobertura().toString());
 
