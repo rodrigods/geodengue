@@ -3,6 +3,7 @@ package br.edu.ufcg.sig.persistence;
 import java.util.List;
 
 import org.postgis.Point;
+import org.postgis.Polygon;
 
 import br.edu.ufcg.sig.beans.Agente;
 import br.edu.ufcg.sig.beans.Ponto;
@@ -24,9 +25,11 @@ public interface PersistenceFacadeInterface {
 	
 	public double distanciaEntreFocos(Point f1, Point f2);
 	
-	public List<String> responsaveisPelosFocos(int matricula);
+	public List<Integer> responsaveisPelosFocos(int matricula);
 	
 	public double areaDoAgente(int matricula);
 	
 	public double comprimentoDaRotaDoAgente(int matricula);
+	
+	public List<Point> getPointsInsidePolygon(Polygon polygon);
 }

@@ -41,11 +41,11 @@ public class Main {
 //		ps[3] = new Point(1, 1);
 //		
 //		Point[] ps2 = new Point[4];
-//		ps2[0] = new Point(0, 0);
-//		ps2[1] = new Point(0, 10);
-//		ps2[2] = new Point(10, 0);
-//		ps2[3] = new Point(10, 10);
-//		ps2[3] = new Point(0, 0);
+//		ps2[0] = new Point(12, 12);
+//		ps2[1] = new Point(12, 14);
+//		ps2[2] = new Point(14, 12);
+//		ps2[3] = new Point(14, 14);
+//		ps2[3] = new Point(12, 12);
 //		
 //		LinearRing[] lrs = new LinearRing[1];
 //		lrs[0] = new LinearRing(ps2);
@@ -53,7 +53,7 @@ public class Main {
 //		Polygon polygon = new Polygon(lrs);
 //		
 //		LineString lineString = new LineString(ps);
-//		
+		
 //		Agente agente = new Agente();
 //		agente.setAreaCobertura(polygon);
 //		agente.setMatricula(100);
@@ -78,15 +78,41 @@ public class Main {
 		
 		Point p3 = new Point(3,3);
 //		System.out.println(p3);
-		System.out.println(PersistenceFacade.getInstance().consultaDistanciaDeFocosAUmPonto(p3, 1));
-		System.out.println(PersistenceFacade.getInstance().focosNaAreaDoAgente(100));
-		System.out.println(PersistenceFacade.getInstance().pessoasContaminadasEmUmRaio(p3, 10));
+//		System.out.println(PersistenceFacade.getInstance().consultaDistanciaDeFocosAUmPonto(p3, 1));
+//		System.out.println(PersistenceFacade.getInstance().focosNaAreaDoAgente(100));
+//		System.out.println(PersistenceFacade.getInstance().pessoasContaminadasEmUmRaio(p3, 10));
 //		Agente agente = new Agente();
 //		LineString rota = new LineString(ps);
 //		agente.setRota(rota);
 //		agente.setAreaCobertura(polygon);
 //		agente.setNome("Creuza Maria");
 //		PersistenceFacade.getInstance().saveAgente(agente);
+		
+//		Point[] ps3 = new Point[4];
+//		ps3[0] = new Point(1, 1);
+//		ps3[1] = new Point(2, 2);
+//		ps3[2] = new Point(2, 1);
+//		ps3[3] = new Point(1, 1);
+//		
+		Point[] ps4 = new Point[4];
+		ps4[0] = new Point(0, 0);
+		ps4[1] = new Point(10, 0);
+		ps4[2] = new Point(0, 10);
+		ps4[3] = new Point(10, 10);
+		ps4[3] = new Point(0, 0);
+//		
+		LinearRing[] lrs2 = new LinearRing[1];
+		lrs2[0] = new LinearRing(ps4);
+//		
+		Polygon polygon2 = new Polygon(lrs2);
+//		
+//		Agente agente2 = new Agente();
+//		LineString rota2 = new LineString(ps3);
+//		agente2.setRota(rota2);
+//		agente2.setAreaCobertura(polygon2);
+//		agente2.setNome("Creuza Maria creidisvania");
+//		PersistenceFacade.getInstance().saveAgente(agente2);
+		System.out.println(PersistenceFacade.getInstance().getPointsInsidePolygon(polygon2));
 	}
 
 }
