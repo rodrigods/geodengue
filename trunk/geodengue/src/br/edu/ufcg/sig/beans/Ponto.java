@@ -6,7 +6,6 @@ public class Ponto {
 	private Point location;
 	private PontoType type;
 	
-	
 	public void setType(PontoType type) {
 		this.type = type;
 	}
