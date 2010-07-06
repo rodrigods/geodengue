@@ -40,28 +40,25 @@ public class PersistenceFacade implements PersistenceFacadeInterface{
 	}
 
 
-	public List<Ponto> consultaDistanciaDeFocosAUmPonto(String p1, int x) {
+	public List<Ponto> consultaDistanciaDeFocosAUmPonto(Point p1, int x) {
 		return this.dao.consultaDistanciaDeFocosAUmPonto(p1, x);
 	}
 
 
 	public List<Ponto> focosNaAreaDoAgente(int matricula) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.dao.focosNaAreaDoAgente(matricula);
 	}
 
 
 	
 	public int pessoasContaminadasEmUmRaio(Point p, int x) {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.dao.pessoasContaminadasEmUmRaio(p, x);
 	}
 
 
 	
 	public int qtdFocosEmUmaRota(int matricula) {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.dao.qtdFocosEmUmaRota(matricula);
 	}
 
 

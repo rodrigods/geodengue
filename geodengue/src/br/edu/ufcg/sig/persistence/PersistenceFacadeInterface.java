@@ -12,7 +12,7 @@ public interface PersistenceFacadeInterface {
 	
 	public void savePonto(Ponto ponto);
 	
-	public List<Ponto> consultaDistanciaDeFocosAUmPonto(String p1, int x);
+	public List<Ponto> consultaDistanciaDeFocosAUmPonto(Point p1, int x);
 	
 	public List<Ponto> focosNaAreaDoAgente(int matricula);
 	
