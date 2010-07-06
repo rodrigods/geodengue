@@ -13,7 +13,7 @@ ST_distance_sphere(p, GeometryFromText(?, 4326)) = x
 
 -- 2) Quais focos estão contidos na área do agente de saúde X? Quantos são?
 
-SELECT p.geometria, COUNT(*)
+SELECT p.geometria
 FROM ponto p, agente x 
 WHERE p.tipo = 0 AND
 ST_Contains(x.areaCobertura, p.geometria) AND

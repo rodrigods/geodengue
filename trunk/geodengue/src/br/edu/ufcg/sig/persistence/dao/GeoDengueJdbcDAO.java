@@ -36,9 +36,10 @@ public class GeoDengueJdbcDAO implements GeoDengueDAO {
             String sql = Querys.SAVE_AGENTE; 
            
             PreparedStatement s = dbConn.prepareStatement(sql);
-            s.setString(1, agente.getNome());
-            s.setString(2, agente.getAreaCobertura().toString());
-            s.setString(3, agente.getRota().toString());
+            s.setInt(1, agente.getMatricula());
+            s.setString(2, agente.getNome());
+            s.setString(3, agente.getAreaCobertura().toString());
+            s.setString(4, agente.getRota().toString());
 
             s.execute();
             s.close();            
@@ -67,40 +68,7 @@ public class GeoDengueJdbcDAO implements GeoDengueDAO {
             e.printStackTrace();
         }
 	}
-
-
-	@Override
-	public List<Ponto> consultaDistanciaDeFocosAUmPonto(String p1, int x) {
-		List<Ponto> focos = new ArrayList<Ponto>();
-		try {
-            String sql = Querys.QUERY_1; 
-           
-            PreparedStatement s = dbConn.prepareStatement(sql);      
-            s.setString(1, p1);
-            s.setInt(2, x);
-            ResultSet rs = s.executeQuery();
-            Ponto p;
-            while(rs.next()){
-            	p = new Ponto();
-            	int type = rs.getInt(2);
-            	if (type == 0) {
-            		p.setType(PontoType.FOCO);
-            		PGgeometry pg = (PGgeometry)(rs.getObject(3));
-            		p.setLocation(getPointByPGgeometry(pg));
-            		focos.add(p);
-            	}
-            }
-            s.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } 	
-		return focos;
-		
-		
-		
-		
-	}
-
+	
 	private Point getPointByPGgeometry(PGgeometry pg) throws SQLException{		
     	String aux[] = pg.toString().split(" ");
     	String coordinates = aux[0].substring(6) + " " + aux[1].substring(0, aux[1].length() - 1);
@@ -110,24 +78,99 @@ public class GeoDengueJdbcDAO implements GeoDengueDAO {
     	return p;
 	}
 
+
+	@Override
+	public List<Ponto> consultaDistanciaDeFocosAUmPonto(Point p1, int x) {
+		List<Ponto> focos = new ArrayList<Ponto>();
+		try {
+            String sql = Querys.QUERY_1; 
+           
+            PreparedStatement s = dbConn.prepareStatement(sql);      
+            s.setString(1, p1.toString());
+            s.setInt(2, x);
+            ResultSet rs = s.executeQuery();
+            Ponto p;
+            while(rs.next()){
+            	p = new Ponto();
+           		p.setType(PontoType.FOCO);
+           		PGgeometry pg = (PGgeometry)(rs.getObject(3));
+           		p.setLocation(getPointByPGgeometry(pg));
+           		focos.add(p);
+            }
+            s.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } 	
+		return focos;
+	}
+
 	@Override
 	public List<Ponto> focosNaAreaDoAgente(int matricula) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Ponto> focos = new ArrayList<Ponto>();
+		try {
+            String sql = Querys.QUERY_2; 
+           
+            PreparedStatement s = dbConn.prepareStatement(sql);      
+            s.setInt(1, matricula);
+            
+            ResultSet rs = s.executeQuery();
+            while(rs.next()){
+            	Ponto p = new Ponto();
+           		p.setType(PontoType.FOCO);
+           		PGgeometry pg = (PGgeometry)(rs.getObject(3));
+           		p.setLocation(getPointByPGgeometry(pg));
+           		focos.add(p);
+            }
+            s.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } 	
+		return focos;
 	}
 
 
 	@Override
 	public int pessoasContaminadasEmUmRaio(Point p, int x) {
-		// TODO Auto-generated method stub
-		return 0;
+		int counter = 0;
+		try {
+            String sql = Querys.QUERY_3; 
+           
+            PreparedStatement s = dbConn.prepareStatement(sql);      
+            s.setString(1, p.toString());
+            s.setInt(2, x);
+            
+            ResultSet rs = s.executeQuery();
+            if (rs.next()){
+            	counter = rs.getInt(1);
+            }
+            s.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } 	
+        
+		return counter;
 	}
 
 
 	@Override
 	public int qtdFocosEmUmaRota(int matricula) {
-		// TODO Auto-generated method stub
-		return 0;
+		int counter = 0;
+		try {
+            String sql = Querys.QUERY_4; 
+           
+            PreparedStatement s = dbConn.prepareStatement(sql);      
+            s.setInt(1, matricula);
+            
+            ResultSet rs = s.executeQuery();
+            if (rs.next()){
+            	counter = rs.getInt(1);
+            }
+            s.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } 	
+        
+		return counter;
 	}
 
 

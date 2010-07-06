@@ -40,28 +40,47 @@ public class Main {
 //		ps[2] = new Point(2, 1);
 //		ps[3] = new Point(1, 1);
 //		
+//		Point[] ps2 = new Point[4];
+//		ps2[0] = new Point(0, 0);
+//		ps2[1] = new Point(0, 10);
+//		ps2[2] = new Point(10, 0);
+//		ps2[3] = new Point(10, 10);
+//		ps2[3] = new Point(0, 0);
+//		
 //		LinearRing[] lrs = new LinearRing[1];
-//		lrs[0] = new LinearRing(ps);
+//		lrs[0] = new LinearRing(ps2);
 //		
 //		Polygon polygon = new Polygon(lrs);
 //		
+//		LineString lineString = new LineString(ps);
+//		
+//		Agente agente = new Agente();
+//		agente.setAreaCobertura(polygon);
+//		agente.setMatricula(100);
+//		agente.setNome("Rodrigo");
+//		agente.setRota(lineString);
+//		
+//		PersistenceFacade.getInstance().saveAgente(agente);
+		
 //		System.out.println(polygon);
 //		
-//		Point p = new Point(1, 1);
+//		Point p = new Point(5, 5);
 //		Ponto ponto = new Ponto();
 //		ponto.setLocation(p);
-//		ponto.setType(PontoType.FOCO);
+//		ponto.setType(PontoType.PESSOA_CONTAMINADA);
 //		PersistenceFacade.getInstance().savePonto(ponto);
 //		
-//		Point p2 = new Point(2, 3);
+//		Point p2 = new Point(4, 4);
 //		Ponto ponto2 = new Ponto();
 //		ponto2.setLocation(p2);
-//		ponto2.setType(PontoType.FOCO);
+//		ponto2.setType(PontoType.PESSOA_CONTAMINADA);
 //		PersistenceFacade.getInstance().savePonto(ponto2);
 		
 		Point p3 = new Point(3,3);
 //		System.out.println(p3);
-		System.out.println(PersistenceFacade.getInstance().consultaDistanciaDeFocosAUmPonto(p3.toString(), 1));
+		System.out.println(PersistenceFacade.getInstance().consultaDistanciaDeFocosAUmPonto(p3, 1));
+		System.out.println(PersistenceFacade.getInstance().focosNaAreaDoAgente(100));
+		System.out.println(PersistenceFacade.getInstance().pessoasContaminadasEmUmRaio(p3, 10));
 //		Agente agente = new Agente();
 //		LineString rota = new LineString(ps);
 //		agente.setRota(rota);

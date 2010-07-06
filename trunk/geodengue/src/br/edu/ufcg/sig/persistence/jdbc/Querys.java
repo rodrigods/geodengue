@@ -22,22 +22,28 @@ public interface Querys {
 	/**
 	 * Quais focos estão contidos na área do agente de saúde X? Quantos são?
 	 */
-	public static final String QUERY_2 = "SELECT p.geometria, COUNT(*)" +
-										   "FROM ponto p, agente x" +
-										   "WHERE p.tipo = 0 AND" +
-										   "ST_Contains(x.areaCobertura, p.geometria) AND" +
-										   "x.matricula = ?";
+	public static final String QUERY_2 = "SELECT p.*" +
+										   " FROM ponto p, agente x" +
+										   " WHERE p.tipo = 0 AND" +
+										   " Contains(x.areacobertura, p.geometria) AND" +
+										   " x.matricula = ?";
 	
+	/**
+	 * Quantas pessoas foram contaminadas num raio de X metros de um ponto clicado?
+	 */
 	public static final String QUERY_3 = "SELECT COUNT(*)" +
-										   "FROM ponto p" +
-										   "WHERE p.tipo = 1 AND" +
-										   "ST_Contains(ST_Buffer(GeometryFromText(?, -1), X), p.geometria) ";
+										   " FROM ponto p" +
+										   " WHERE p.tipo = 1 AND" +
+										   " Contains(Buffer(GeometryFromText(?, -1), ?), p.geometria)";
 	
+	/**
+	 * Por quantos focos uma rota de uma agente atravessa?
+	 */
 	public static final String QUERY_4 = "SELECT COUNT(*)" +
-										   "FROM ponto p, agente a" +
-	 								       "WHERE ST_Contains(a.rota, p.geometria)  AND" +
-	 								       "p.tipo = 0 AND" +
-	 								       "a.matricula = ?";
+										   " FROM ponto p, agente a" +
+	 								       " WHERE Contains(a.rota, p.geometria) AND" +
+	 								       " p.tipo = 0 AND" +
+	 								       " a.matricula = ?";
 	
 	public static final String QUERY_5 = "SELECT (p1.geometria, p2.geometria)" +
 										   "FROM ponto p1, ponto p2" +
@@ -58,4 +64,9 @@ public interface Querys {
 	public static final String QUERY_8 = "SELECT ST_length2d (a.rota)" +
 										   "FROM agente a" +
 										   "WHERE a.matricula = ?";
+	
+	public static final String QUERY_9 = "SELECT p.*" +
+										   " FROM ponto p, agente a" +
+										   " WHERE a.matricula = ? AND" +
+										   " Contains(a.geometria, p.geometria)";
 }
