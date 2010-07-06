@@ -127,23 +127,23 @@
     <!-- JSPC servlet mappings start -->
 
     <servlet>
-        <servlet-name>org.apache.jsp.source_jsp</servlet-name>
-        <servlet-class>org.apache.jsp.source_jsp</servlet-class>
+        <servlet-name>agente</servlet-name>
+        <servlet-class>agenteController</servlet-class>
     </servlet>
 
     <servlet>
-        <servlet-name>org.apache.jsp.xml.xml_jsp</servlet-name>
-        <servlet-class>org.apache.jsp.xml.xml_jsp</servlet-class>
+        <servlet-name>foco</servlet-name>
+        <servlet-class>focoController</servlet-class>
     </servlet>
 
     <servlet>
-        <servlet-name>org.apache.jsp.tagplugin.choose_jsp</servlet-name>
-        <servlet-class>org.apache.jsp.tagplugin.choose_jsp</servlet-class>
+        <servlet-name>pessoa</servlet-name>
+        <servlet-class>pessoaController</servlet-class>
     </servlet>
 
     <servlet>
-        <servlet-name>org.apache.jsp.tagplugin.foreach_jsp</servlet-name>
-        <servlet-class>org.apache.jsp.tagplugin.foreach_jsp</servlet-class>
+        <servlet-name>buscar</servlet-name>
+        <servlet-class>buscarController</servlet-class>
     </servlet>
 
     <servlet>
@@ -337,18 +337,18 @@
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>org.apache.jsp.source_jsp</servlet-name>
-        <url-pattern>/source.jsp</url-pattern>
+        <servlet-name>foco</servlet-name>
+        <url-pattern>/sucesso.jsp</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
-        <servlet-name>org.apache.jsp.xml.xml_jsp</servlet-name>
-        <url-pattern>/xml/xml.jsp</url-pattern>
+        <servlet-name>agente</servlet-name>
+        <url-pattern>/sucesso.jsp</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
-        <servlet-name>org.apache.jsp.tagplugin.choose_jsp</servlet-name>
-        <url-pattern>/tagplugin/choose.jsp</url-pattern>
+        <servlet-name>pessoa</servlet-name>
+        <url-pattern>/sucesso.jsp</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
