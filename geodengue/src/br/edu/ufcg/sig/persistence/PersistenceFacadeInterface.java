@@ -1,4 +1,4 @@
-package br.edu.ufcg.sig.persistence.dao;
+package br.edu.ufcg.sig.persistence;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import org.postgis.Point;
 import br.edu.ufcg.sig.beans.Agente;
 import br.edu.ufcg.sig.beans.Ponto;
 
-public interface GeoDengueDAO {
+public interface PersistenceFacadeInterface {
 	public void saveAgente(Agente agente);
 	
 	public void savePonto(Ponto ponto);
@@ -29,5 +29,4 @@ public interface GeoDengueDAO {
 	public double areaDoAgente(int matricula);
 	
 	public double comprimentoDaRotaDoAgente(int matricula);
-	
 }

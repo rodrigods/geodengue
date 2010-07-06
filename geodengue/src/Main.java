@@ -3,10 +3,12 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import org.apache.http.client.ClientProtocolException;
+import org.postgis.LineString;
 import org.postgis.LinearRing;
 import org.postgis.Point;
 import org.postgis.Polygon;
 
+import br.edu.ufcg.sig.beans.Agente;
 import br.edu.ufcg.sig.beans.Ponto;
 import br.edu.ufcg.sig.beans.PontoType;
 import br.edu.ufcg.sig.persistence.PersistenceFacade;
@@ -32,23 +34,40 @@ public class Main {
 		GeoServerManager.insert(pontoXML);*/
 		
 		
-		Point[] ps = new Point[4];
-		ps[0] = new Point(1, 1);
-		ps[1] = new Point(2, 2);
-		ps[2] = new Point(2, 1);
-		ps[3] = new Point(1, 1);
+//		Point[] ps = new Point[4];
+//		ps[0] = new Point(1, 1);
+//		ps[1] = new Point(2, 2);
+//		ps[2] = new Point(2, 1);
+//		ps[3] = new Point(1, 1);
+//		
+//		LinearRing[] lrs = new LinearRing[1];
+//		lrs[0] = new LinearRing(ps);
+//		
+//		Polygon polygon = new Polygon(lrs);
+//		
+//		System.out.println(polygon);
+//		
+//		Point p = new Point(1, 1);
+//		Ponto ponto = new Ponto();
+//		ponto.setLocation(p);
+//		ponto.setType(PontoType.FOCO);
+//		PersistenceFacade.getInstance().savePonto(ponto);
+//		
+//		Point p2 = new Point(2, 3);
+//		Ponto ponto2 = new Ponto();
+//		ponto2.setLocation(p2);
+//		ponto2.setType(PontoType.FOCO);
+//		PersistenceFacade.getInstance().savePonto(ponto2);
 		
-		LinearRing[] lrs = new LinearRing[1];
-		lrs[0] = new LinearRing(ps);
-		
-		Polygon polygon = new Polygon(lrs);
-		
-		Point p = new Point(-7, -35);
-		Ponto ponto = new Ponto();
-		ponto.setLocation(p);
-		ponto.setType(PontoType.FOCO);
-		
-		PersistenceFacade.getInstance().savePonto(ponto);
+		Point p3 = new Point(3,3);
+//		System.out.println(p3);
+		System.out.println(PersistenceFacade.getInstance().consultaDistanciaDeFocosAUmPonto(p3.toString(), 1));
+//		Agente agente = new Agente();
+//		LineString rota = new LineString(ps);
+//		agente.setRota(rota);
+//		agente.setAreaCobertura(polygon);
+//		agente.setNome("Creuza Maria");
+//		PersistenceFacade.getInstance().saveAgente(agente);
 	}
 
 }

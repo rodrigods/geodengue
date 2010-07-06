@@ -10,11 +10,18 @@ public interface Querys {
 			" (matricula, nome, areaCobertura, rota)" +
 			" VALUES(?, ?, GeometryFromText(?,-1), GeometryFromText(?,-1))";
 	
+	/**
+	 * Quais focos estão a uma distância de X metros de um ponto clicado? 
+	 */
 	public static final String QUERY_1 = "SELECT p.*" + 
-										   "FROM ponto p" + 
-										   "WHERE tipo = 0 AND" +
-										   "ST_distance_sphere(p, GeometryFromText(?, -1)) = ?";
+										   " FROM ponto p" + 
+										   " WHERE p.tipo = 0 AND" +
+										   " distance(p.geometria, GeometryFromText(?, -1)) = ?";
 	
+	
+	/**
+	 * Quais focos estão contidos na área do agente de saúde X? Quantos são?
+	 */
 	public static final String QUERY_2 = "SELECT p.geometria, COUNT(*)" +
 										   "FROM ponto p, agente x" +
 										   "WHERE p.tipo = 0 AND" +
