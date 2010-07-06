@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 
+import org.postgis.LineString;
 import org.postgis.PGgeometry;
 import org.postgis.Point;
 import org.postgis.Polygon;
@@ -40,13 +41,32 @@ public class GeoDengueJdbcDAO implements GeoDengueDAO {
             s.setInt(1, agente.getMatricula());
             s.setString(2, agente.getNome());
             s.setString(3, agente.getAreaCobertura().toString());
-            s.setString(4, agente.getRota().toString());
+            
+            updateRotaAgente(agente);
+            if (!agente.getRota().isEmpty()) {
+            	s.setString(4, agente.getRota().toString());
+            } else {
+            	s.setString(4, null);
+            }
 
             s.execute();
             s.close();            
         } catch (SQLException e) {
             e.printStackTrace();
         }
+	}
+	
+	private void updateRotaAgente(Agente agente) {
+		List<Point> pontos = getPointsInsidePolygon(agente.getAreaCobertura());
+
+		Point[] pArray = new Point[pontos.size()];
+		
+		int index = 0;
+		for (Point p : pontos) {
+			pArray[index++] = p;
+		}
+		
+		agente.setRota(new LineString(pArray));
 	}
 
 	public void savePonto(Ponto ponto) {
@@ -97,13 +117,11 @@ public class GeoDengueJdbcDAO implements GeoDengueDAO {
 	private Point getPointByPGgeometry(PGgeometry pg) throws SQLException{		
     	String aux[] = pg.toString().split(" ");
     	String coordinates = aux[0].substring(6) + " " + aux[1].substring(0, aux[1].length() - 1);
-    	//creates a point with the string:
-    	//
+
     	Point p = new Point(coordinates); 
     	return p;
 	}
 
-	
 	public List<Ponto> focosNaAreaDoAgente(int matricula) {
 		List<Ponto> focos = new ArrayList<Ponto>();
 		try {
@@ -127,8 +145,6 @@ public class GeoDengueJdbcDAO implements GeoDengueDAO {
 		return focos;
 	}
 
-
-	
 	public int pessoasContaminadasEmUmRaio(Point p, int x) {
 		int counter = 0;
 		try {
@@ -150,8 +166,6 @@ public class GeoDengueJdbcDAO implements GeoDengueDAO {
 		return counter;
 	}
 
-
-	
 	public int qtdFocosEmUmaRota(int matricula) {
 		int counter = 0;
 		try {
@@ -193,23 +207,29 @@ public class GeoDengueJdbcDAO implements GeoDengueDAO {
 	}
 	
 	public List<Integer> responsaveisPelosFocos(int matricula) {
-		List<Integer> agentes = new ArrayList<Integer>();
-		try {
-            String sql = Querys.QUERY_6; 
-           
-            PreparedStatement s = dbConn.prepareStatement(sql);      
-            s.setInt(1, matricula);
-            ResultSet rs = s.executeQuery();
-            while(rs.next()){
-            	agentes.add(rs.getInt(1));
-            }
-            s.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } 	
-		return agentes;
+//		Agente agente = getAgente(matricula);
+//		
+//		List<Point> pontos = getPointsInsidePolygon(agente.getAreaCobertura());
+//		
+//		int matAgente;
+//		try {
+//            String sql = Querys.QUERY_6; 
+//           
+//            PreparedStatement s = dbConn.prepareStatement(sql);      
+//            s.setInt(1, matricula);
+//            ResultSet rs = s.executeQuery();
+//            while(rs.next()){
+//            	agentes.add(rs.getInt(1));
+//            }
+//            s.close();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        } 	
+//		return agentes;
+		
+		return null;
 	}
-
+	
 	public double areaDoAgente(int matricula) {
 		double area = 0;
 		try {
@@ -246,8 +266,6 @@ public class GeoDengueJdbcDAO implements GeoDengueDAO {
 		return comprimento;
 	}
 
-
-	@Override
 	public List<Point> getPointsInsidePolygon(Polygon polygon) {
 		List<Point> pontos = new ArrayList<Point>();
 		try {
@@ -265,5 +283,19 @@ public class GeoDengueJdbcDAO implements GeoDengueDAO {
             e.printStackTrace();
         } 	
 		return pontos;
+	}
+
+
+	public void deleteAgente(int matricula) {
+		try {
+            String sql = Querys.DELETE_AGENTE; 
+           
+            PreparedStatement s = dbConn.prepareStatement(sql);      
+            s.setInt(1, matricula);
+            s.execute();
+            s.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } 	
 	}
 }

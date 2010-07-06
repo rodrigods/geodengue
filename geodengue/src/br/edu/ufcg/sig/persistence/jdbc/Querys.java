@@ -58,10 +58,11 @@ public interface Querys {
 	 * Caso o agente X seja eliminado, quem serão os responsáveis pelos focos que eram dele? (Alocar cada foco para o agente com a área mais próxima).
 	 */
 	public static final String QUERY_6 = " SELECT a1.matricula " + 
-										   " FROM agente x, a1, a2 " +
-										   " WHERE distance(x.areaCobertura,a1.areaCobertura) < " +
-										   " distance(elim.areaCobertura,a2.areaCobertura) " + 
-										   " AND x.matricula = ? ";	
+										   " FROM agente a1 " +
+										   " WHERE distance(a1.areacobertura, GeometryFromText(?, -1)) < " +
+										   " ALL (SELECT distance(a2.areacobertura, GeometryFromText(?, -1))" +
+										   "      FROM agente a2" +
+										   "      WHERE a2.codigo <> a2.codigo)"; 
 	
 	/**
 	 *  Qual a área da área responsável por um agente de saúde 
@@ -84,4 +85,8 @@ public interface Querys {
 	public static final String QUERY_9 = "SELECT p.geometria" +
 										   " FROM ponto p" +
 										   " WHERE contains(GeometryFromText(?, -1), p.geometria)";
+	
+	public static final String DELETE_AGENTE = " DELETE " +
+													" FROM agente a " +
+													" WHERE a.matricula = ?";
 }

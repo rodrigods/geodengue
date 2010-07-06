@@ -32,4 +32,6 @@ public interface GeoDengueDAO {
 	public double comprimentoDaRotaDoAgente(int matricula);
 	
 	public List<Point> getPointsInsidePolygon(Polygon polygon);
+	
+	public void deleteAgente(int matricula);
 }
