@@ -45,17 +45,23 @@ public interface Querys {
 	 								       " p.tipo = 0 AND" +
 	 								       " a.matricula = ?";
 	
-	public static final String QUERY_5 = "SELECT (p1.geometria, p2.geometria)" +
-										   "FROM ponto p1, ponto p2" +
-										   "WHERE p1.tipo = 0 AND p2.tipo = 0 AND" +
-										   "p1.geometria = GeometryFromText(?, -1) AND" +
-										   "p2.geometria = GeometryFromText(?, -1)";
+	/**
+	 * Qual a distância entre dois focos selecionados no mapa? 
+	 */
+	public static final String QUERY_5 = " SELECT distance(p1.geometria, p2.geometria) " +
+										   " FROM ponto p1, ponto p2 " +
+										   " WHERE p1.tipo = 0 AND p2.tipo = 0 AND " +
+										   " p1.geometria = GeometryFromText(?, -1) AND " +
+										   " p2.geometria = GeometryFromText(?, -1) ";
 
-	public static final String QUERY_6 = "SELECT a1.matricula" + 
-										   "FROM agente x, a1, a2" +
-										   "WHERE ST_distance(x.areaCobertura,a1.areaCobertura) < " +
-										   "ST_distance(elim.areaCobertura,a2.areaCobertura)" + 
-										   "AND x.matricula = ?";	
+	/**
+	 * Caso o agente X seja eliminado, quem serão os responsáveis pelos focos que eram dele? (Alocar cada foco para o agente com a área mais próxima).
+	 */
+	public static final String QUERY_6 = " SELECT a1.matricula " + 
+										   " FROM agente x, a1, a2 " +
+										   " WHERE distance(x.areaCobertura,a1.areaCobertura) < " +
+										   " distance(elim.areaCobertura,a2.areaCobertura) " + 
+										   " AND x.matricula = ? ";	
 	
 	public static final String QUERY_7 = "SELECT ST_area(a.areaCobertura)" +
 										   "FROM agente a" +
