@@ -163,10 +163,12 @@ function chama(){
 		<td style="width: 765px; align: center; height: 280px">
 		  <div id="map" style="width: 780px; height: 285px"></div>
 		   <div id="formulario" style="margin: 10px">
-		   <form action="#" id="posicion" name="posicao">
+		  Para cadastrar uma pessoa contaminada clique no mapa e depois em enviar. 
+		  <form action="pessoa" id="pessoa" name="pessoa">
 		   X: <input type="text" name="x" value="" />
 		   <br />
 		   Y: <input type="text" name="y" value="" />
+		   <input type="submit" value="Enviar">
 		   </form>
 		   </div>		
 		</td>
