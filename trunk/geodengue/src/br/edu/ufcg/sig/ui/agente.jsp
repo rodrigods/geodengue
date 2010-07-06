@@ -163,10 +163,11 @@ function chama(){
 		<td style="width: 765px; align: center; height: 280px">
 		  <div id="map" style="width: 780px; height: 285px"></div>
 		   <div id="formulario" style="margin: 10px">
-		   <form action="#" id="posicion" name="posicao">
-		   X: <input type="text" name="x" value="" />
+		   <form action="agente" id="agente" name="agente">
+		   Nome <input type="text" name="nome" value="" />
 		   <br />
-		   Y: <input type="text" name="y" value="" />
+		   Matricula <input type="text" name="matricula" value="" />
+		   Area <input type="text" name="area" value="" />
 		   </form>
 		   </div>		
 		</td>
