@@ -13,7 +13,7 @@ CREATE TABLE agente (
 codigo SERIAL,
 matricula INT,
 nome varchar(30),
-PRIMARY KEY (matricula));
+PRIMARY KEY (codigo));
 
-SELECT AddGeometryColumn('agente','areaCobertura',-1,'POLYGON',2);
+SELECT AddGeometryColumn('agente','areacobertura',-1,'POLYGON',2);
 SELECT AddGeometryColumn('agente','rota',-1,'LINESTRING',2);
