@@ -1,10 +1,10 @@
 package br.edu.ufcg.sig.persistence.jdbc;
 
-public interface Querys {
+public interface Queries {
 
 	public static final String SAVE_PONTO = "INSERT INTO ponto" +
-			" (tipo, geometria)" +
-			" VALUES(?, GeometryFromText(?,-1))";
+			" (tipo, descricao, geom)" +
+			" VALUES(?, ?, GeometryFromText(?,-1))";
 	
 	public static final String SAVE_AGENTE = "INSERT INTO agente" +
 			" (matricula, nome, areaCobertura, rota)" +
@@ -15,8 +15,8 @@ public interface Querys {
 	 */
 	public static final String QUERY_1 = "SELECT p.*" + 
 										   " FROM ponto p" + 
-										   " WHERE p.tipo = 0 AND" +
-										   " distance(p.geometria, GeometryFromText(?, -1)) = ?";
+										   " WHERE p.tipo = 'F' AND" +
+										   " distance(p.geo, GeometryFromText(?, -1)) = ?";
 	
 	
 	/**
@@ -24,8 +24,8 @@ public interface Querys {
 	 */
 	public static final String QUERY_2 = "SELECT p.*" +
 										   " FROM ponto p, agente x" +
-										   " WHERE p.tipo = 0 AND" +
-										   " Contains(x.areacobertura, p.geometria) AND" +
+										   " WHERE p.tipo = 'F' AND" +
+										   " Contains(x.areacobertura, p.geo) AND" +
 										   " x.matricula = ?";
 	
 	/**
@@ -33,16 +33,16 @@ public interface Querys {
 	 */
 	public static final String QUERY_3 = "SELECT COUNT(*)" +
 										   " FROM ponto p" +
-										   " WHERE p.tipo = 1 AND" +
-										   " Contains(Buffer(GeometryFromText(?, -1), ?), p.geometria)";
+										   " WHERE p.tipo = 'P' AND" +
+										   " Contains(Buffer(GeometryFromText(?, -1), ?), p.geo)";
 	
 	/**
 	 * Por quantos focos uma rota de uma agente atravessa?
 	 */
 	public static final String QUERY_4 = "SELECT COUNT(*)" +
 										   " FROM ponto p, agente a" +
-	 								       " WHERE Contains(a.rota, p.geometria) AND" +
-	 								       " p.tipo = 0 AND" +
+	 								       " WHERE Contains(a.rota, p.geo) AND" +
+	 								       " p.tipo = 'F' AND" +
 	 								       " a.matricula = ?";
 	
 	/**
@@ -50,7 +50,7 @@ public interface Querys {
 	 */
 	public static final String QUERY_5 = " SELECT distance(p1.geometria, p2.geometria) " +
 										   " FROM ponto p1, ponto p2 " +
-										   " WHERE p1.tipo = 0 AND p2.tipo = 0 AND " +
+										   " WHERE p1.tipo = 'F' AND p2.tipo = 'F' AND " +
 										   " p1.geometria = GeometryFromText(?, -1) AND " +
 										   " p2.geometria = GeometryFromText(?, -1) ";
 
@@ -82,11 +82,15 @@ public interface Querys {
 	/**
 	 * Recupera os pontos que então dentro de uma geometria dada
 	 */
-	public static final String QUERY_9 = "SELECT p.geometria" +
+	public static final String GET_POINTS_INSIDE_POLYGON = "SELECT p.geo" +
 										   " FROM ponto p" +
-										   " WHERE contains(GeometryFromText(?, -1), p.geometria)";
+										   " WHERE contains(GeometryFromText(?, -1), p.geo)";
 	
 	public static final String DELETE_AGENTE = " DELETE " +
-													" FROM agente a " +
-													" WHERE a.matricula = ?";
+										   " FROM agente a " +
+										   " WHERE a.matricula = ?";
+	
+	public static final String DELETE_PONTO = " DELETE " +
+										   " FROM ponto p " +
+										   " WHERE p.codigo = ?";
 }

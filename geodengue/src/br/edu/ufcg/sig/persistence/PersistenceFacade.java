@@ -7,29 +7,80 @@ import org.postgis.Polygon;
 
 import br.edu.ufcg.sig.beans.Agente;
 import br.edu.ufcg.sig.beans.Ponto;
+import br.edu.ufcg.sig.persistence.dao.GeoDengueDAO;
+import br.edu.ufcg.sig.persistence.dao.GeoDengueJdbcDAO;
 
-public interface PersistenceFacade {
-	public void saveAgente(Agente agente);
+public class PersistenceFacade {
 	
-	public void savePonto(Ponto ponto);
+	private GeoDengueDAO dao;
 	
-	public List<Ponto> consultaDistanciaDeFocosAUmPonto(Point p1, int x);
 	
-	public List<Ponto> focosNaAreaDoAgente(int matricula);
+	private static PersistenceFacade instance;
 	
-	public int pessoasContaminadasEmUmRaio(Point p,int x);
 	
-	public int qtdFocosEmUmaRota(int matricula);
+	private PersistenceFacade() {
+		dao = new GeoDengueJdbcDAO();
+	}
 	
-	public double distanciaEntreFocos(Point f1, Point f2);
 	
-	public List<Integer> responsaveisPelosFocos(int matricula);
+	public static PersistenceFacade getInstance() {
+		if (instance == null) {
+			instance = new PersistenceFacade();
+		}
+		
+		return instance;
+	}
 	
-	public double areaDoAgente(int matricula);
 	
-	public double comprimentoDaRotaDoAgente(int matricula);
+	public void savePonto(Ponto ponto) {
+		this.dao.savePonto(ponto);
+	}
 	
-	public List<Point> getPointsInsidePolygon(Polygon polygon);
+	public void saveAgente(Agente agente) {
+		this.dao.saveAgente(agente);
+	}
+
+	public List<Ponto> getFocosFromDistance(Point p1, int x) {
+		return this.dao.getFocosFromDistance(p1, x);
+	}
+
+	public List<Ponto> getFocosOnAgenteArea(int mat) {
+		return this.dao.getFocosOnAgenteArea(mat);
+	}
 	
-	public void deleteAgente(int matricula);
+	public int getPessoasContaminadasInArea(Point p, int x) {
+		return this.dao.getPessoasContaminadasInArea(p, x);
+	}
+
+	public int countFocosInAgenteArea(int mat) {
+		return this.dao.countFocosInAgenteArea(mat);
+	}
+	
+	public double getDistanceBetweenFocos(Ponto f1, Ponto f2) {
+		return this.dao.getDistanceBetweenFocos(f1, f2);
+	}
+	
+	public List<Integer> getNewResponsibleAgentes(int mat) {
+		return this.dao.getNewResponsibleAgentes(mat);
+	}
+	
+	public double getAgenteArea(int mat) {
+		return this.dao.getAgenteArea(mat);
+	}
+
+	public double getAgenteRotaLength(int mat) {
+		return this.dao.getAgenteRotaLength(mat);
+	}
+
+	public List<Point> getPointsInsidePolygon(Polygon polygon) {
+		return this.dao.getPointsInsidePolygon(polygon);
+	}
+
+	public void deleteAgente(int mat) {
+		this.dao.deleteAgente(mat);
+	}
+
+	public void deletePonto(int cod) {
+		this.dao.deletePonto(cod);
+	}
 }

@@ -13,25 +13,25 @@ public interface GeoDengueDAO {
 	
 	public void savePonto(Ponto ponto);
 	
-	public List<Ponto> consultaDistanciaDeFocosAUmPonto(Point p1, int x);
+	public List<Ponto> getFocosFromDistance(Point p1, int x);
 	
-	public List<Ponto> focosNaAreaDoAgente(int matricula);
+	public List<Ponto> getFocosOnAgenteArea(int mat);
 	
-//	public int qtidadeFocosNaAreaDoAgente(int matricula);
+	public int getPessoasContaminadasInArea(Point p,int x);
 	
-	public int pessoasContaminadasEmUmRaio(Point p,int x);
+	public int countFocosInAgenteArea(int mat);
 	
-	public int qtdFocosEmUmaRota(int matricula);
+	public double getDistanceBetweenFocos(Ponto f1, Ponto f2);
 	
-	public double distanciaEntreFocos(Point f1, Point f2);
+	public List<Integer> getNewResponsibleAgentes(int mat);
 	
-	public List<Integer> responsaveisPelosFocos(int matricula);
+	public double getAgenteArea(int mat);
 	
-	public double areaDoAgente(int matricula);
-	
-	public double comprimentoDaRotaDoAgente(int matricula);
+	public double getAgenteRotaLength(int mat);
 	
 	public List<Point> getPointsInsidePolygon(Polygon polygon);
 	
-	public void deleteAgente(int matricula);
+	public void deleteAgente(int mat);
+	
+	public void deletePonto(int codigo);
 }

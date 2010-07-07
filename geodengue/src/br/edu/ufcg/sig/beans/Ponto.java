@@ -3,8 +3,11 @@ package br.edu.ufcg.sig.beans;
 import org.postgis.Point;
 
 public class Ponto {
-	private Point location;
+	
+	private Point geometria;
 	private PontoType type;
+	private String descricao;
+	
 	
 	public void setType(PontoType type) {
 		this.type = type;
@@ -14,11 +17,19 @@ public class Ponto {
 		return type;
 	}
 	
-	public void setLocation(Point location) {
-		this.location = location;
+	public void setGeometria(Point geometria) {
+		this.geometria = geometria;
 	}
 	
-	public Point getLocation() {
-		return location;
+	public Point getGeometria() {
+		return geometria;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public String getDescricao() {
+		return descricao;
 	}
 }
