@@ -2,16 +2,17 @@
 
 CREATE TABLE ponto (
 codigo SERIAL,
-tipo INT,
+tipo CHAR,
+descricao VARCHAR(200),
 PRIMARY KEY(codigo));
 
-SELECT AddGeometryColumn('ponto','geometria',-1,'POINT',2);
+SELECT AddGeometryColumn('ponto','geom',-1,'POINT',2);
 
 -- Agente de Saúde
 
 CREATE TABLE agente (
 codigo SERIAL,
-matricula INT,
+matricula INT NOT NULL,
 nome varchar(30),
 PRIMARY KEY (codigo));
 

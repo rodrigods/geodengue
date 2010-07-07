@@ -4,9 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.ArrayList;
-
+import java.util.List;
 
 import org.postgis.LineString;
 import org.postgis.PGgeometry;
@@ -17,7 +16,7 @@ import br.edu.ufcg.sig.beans.Agente;
 import br.edu.ufcg.sig.beans.Ponto;
 import br.edu.ufcg.sig.beans.PontoType;
 import br.edu.ufcg.sig.persistence.jdbc.ConnectionFactory;
-import br.edu.ufcg.sig.persistence.jdbc.Querys;
+import br.edu.ufcg.sig.persistence.jdbc.Queries;
 
 public class GeoDengueJdbcDAO implements GeoDengueDAO {
 	
@@ -35,7 +34,7 @@ public class GeoDengueJdbcDAO implements GeoDengueDAO {
 	
 	public void saveAgente(Agente agente) {
 		try {
-            String sql = Querys.SAVE_AGENTE; 
+            String sql = Queries.SAVE_AGENTE; 
            
             PreparedStatement s = dbConn.prepareStatement(sql);
             s.setInt(1, agente.getMatricula());
@@ -71,17 +70,15 @@ public class GeoDengueJdbcDAO implements GeoDengueDAO {
 
 	public void savePonto(Ponto ponto) {
 		try {
-            String sql = Querys.SAVE_PONTO; 
+            String sql = Queries.SAVE_PONTO; 
            
             PreparedStatement s = dbConn.prepareStatement(sql);
             
-            int type = 0;
-            if (ponto.getType().equals(PontoType.PESSOA_CONTAMINADA)) {
-            	type = 1;
-            }
+            String type = ponto.getType().equals(PontoType.FOCO) ? "F" : "P";
             
-            s.setInt(1, type);
-            s.setString(2, ponto.getLocation().toString());
+            s.setString(1, type);
+            s.setString(2, ponto.getDescricao());
+            s.setString(3, ponto.getGeometria().toString());
 
             s.execute();
             s.close();            
@@ -90,10 +87,10 @@ public class GeoDengueJdbcDAO implements GeoDengueDAO {
         }
 	}
 
-	public List<Ponto> consultaDistanciaDeFocosAUmPonto(Point p1, int x) {
+	public List<Ponto> getFocosFromDistance(Point p1, int x) {
 		List<Ponto> focos = new ArrayList<Ponto>();
 		try {
-            String sql = Querys.QUERY_1; 
+            String sql = Queries.QUERY_1; 
            
             PreparedStatement s = dbConn.prepareStatement(sql);      
             s.setString(1, p1.toString());
@@ -104,7 +101,7 @@ public class GeoDengueJdbcDAO implements GeoDengueDAO {
             	p = new Ponto();
            		p.setType(PontoType.FOCO);
            		PGgeometry pg = (PGgeometry)(rs.getObject(3));
-           		p.setLocation(getPointByPGgeometry(pg));
+           		p.setGeometria(getPointByPGgeometry(pg));
            		focos.add(p);
             }
             s.close();
@@ -122,20 +119,20 @@ public class GeoDengueJdbcDAO implements GeoDengueDAO {
     	return p;
 	}
 
-	public List<Ponto> focosNaAreaDoAgente(int matricula) {
+	public List<Ponto> getFocosOnAgenteArea(int mat) {
 		List<Ponto> focos = new ArrayList<Ponto>();
 		try {
-            String sql = Querys.QUERY_2; 
+            String sql = Queries.QUERY_2; 
            
             PreparedStatement s = dbConn.prepareStatement(sql);      
-            s.setInt(1, matricula);
+            s.setInt(1, mat);
             
             ResultSet rs = s.executeQuery();
             while(rs.next()){
             	Ponto p = new Ponto();
            		p.setType(PontoType.FOCO);
            		PGgeometry pg = (PGgeometry)(rs.getObject(3));
-           		p.setLocation(getPointByPGgeometry(pg));
+           		p.setGeometria(getPointByPGgeometry(pg));
            		focos.add(p);
             }
             s.close();
@@ -145,10 +142,10 @@ public class GeoDengueJdbcDAO implements GeoDengueDAO {
 		return focos;
 	}
 
-	public int pessoasContaminadasEmUmRaio(Point p, int x) {
+	public int getPessoasContaminadasInArea(Point p, int x) {
 		int counter = 0;
 		try {
-            String sql = Querys.QUERY_3; 
+            String sql = Queries.QUERY_3; 
            
             PreparedStatement s = dbConn.prepareStatement(sql);      
             s.setString(1, p.toString());
@@ -166,34 +163,35 @@ public class GeoDengueJdbcDAO implements GeoDengueDAO {
 		return counter;
 	}
 
-	public int qtdFocosEmUmaRota(int matricula) {
-		int counter = 0;
+	public int countFocosInAgenteArea(int mat) {
+		int out = 0;
+		
 		try {
-            String sql = Querys.QUERY_4; 
+            String sql = Queries.QUERY_4; 
            
             PreparedStatement s = dbConn.prepareStatement(sql);      
-            s.setInt(1, matricula);
+            s.setInt(1, mat);
             
             ResultSet rs = s.executeQuery();
             if (rs.next()){
-            	counter = rs.getInt(1);
+            	out = rs.getInt(1);
             }
             s.close();
         } catch (SQLException e) {
             e.printStackTrace();
         } 	
         
-		return counter;
+		return out;
 	}
 	
-	public double distanciaEntreFocos(Point f1, Point f2) {
+	public double getDistanceBetweenFocos(Ponto f1, Ponto f2) {
 		double distancia = 0;
 		try {
-            String sql = Querys.QUERY_5; 
+            String sql = Queries.QUERY_5; 
            
             PreparedStatement s = dbConn.prepareStatement(sql);      
-            s.setString(1, f1.toString());
-            s.setString(2, f2.toString());
+            s.setString(1, f1.getGeometria().toString());
+            s.setString(2, f2.getGeometria().toString());
             ResultSet rs = s.executeQuery();
             while(rs.next()){
             	distancia = rs.getDouble(1);
@@ -206,8 +204,8 @@ public class GeoDengueJdbcDAO implements GeoDengueDAO {
 
 	}
 	
-	public List<Integer> responsaveisPelosFocos(int matricula) {
-//		Agente agente = getAgente(matricula);
+	public List<Integer> getNewResponsibleAgentes(int mat) {
+//		Agente agente = getAgente(mat);
 //		
 //		List<Point> pontos = getPointsInsidePolygon(agente.getAreaCobertura());
 //		
@@ -216,7 +214,7 @@ public class GeoDengueJdbcDAO implements GeoDengueDAO {
 //            String sql = Querys.QUERY_6; 
 //           
 //            PreparedStatement s = dbConn.prepareStatement(sql);      
-//            s.setInt(1, matricula);
+//            s.setInt(1, mat);
 //            ResultSet rs = s.executeQuery();
 //            while(rs.next()){
 //            	agentes.add(rs.getInt(1));
@@ -230,13 +228,13 @@ public class GeoDengueJdbcDAO implements GeoDengueDAO {
 		return null;
 	}
 	
-	public double areaDoAgente(int matricula) {
+	public double getAgenteArea(int mat) {
 		double area = 0;
 		try {
-            String sql = Querys.QUERY_7; 
+            String sql = Queries.QUERY_7; 
            
             PreparedStatement s = dbConn.prepareStatement(sql);      
-            s.setInt(1, matricula);
+            s.setInt(1, mat);
             ResultSet rs = s.executeQuery();
             while(rs.next()){
             	area = rs.getDouble(1);
@@ -248,28 +246,28 @@ public class GeoDengueJdbcDAO implements GeoDengueDAO {
 		return area;
 	}
 
-	public double comprimentoDaRotaDoAgente(int matricula) {
-		double comprimento = 0;
+	public double getAgenteRotaLength(int mat) {
+		double length = 0;
 		try {
-            String sql = Querys.QUERY_8; 
+            String sql = Queries.QUERY_8; 
            
             PreparedStatement s = dbConn.prepareStatement(sql);      
-            s.setInt(1, matricula);
+            s.setInt(1, mat);
             ResultSet rs = s.executeQuery();
             while(rs.next()){
-            	comprimento = rs.getDouble(1);
+            	length = rs.getDouble(1);
             }
             s.close();
         } catch (SQLException e) {
             e.printStackTrace();
         } 	
-		return comprimento;
+		return length;
 	}
 
 	public List<Point> getPointsInsidePolygon(Polygon polygon) {
 		List<Point> pontos = new ArrayList<Point>();
 		try {
-            String sql = Querys.QUERY_9; 
+            String sql = Queries.GET_POINTS_INSIDE_POLYGON; 
            
             PreparedStatement s = dbConn.prepareStatement(sql);      
             s.setString(1, polygon.toString());
@@ -286,12 +284,25 @@ public class GeoDengueJdbcDAO implements GeoDengueDAO {
 	}
 
 
-	public void deleteAgente(int matricula) {
+	public void deleteAgente(int mat) {
 		try {
-            String sql = Querys.DELETE_AGENTE; 
+            String sql = Queries.DELETE_AGENTE; 
            
             PreparedStatement s = dbConn.prepareStatement(sql);      
-            s.setInt(1, matricula);
+            s.setInt(1, mat);
+            s.execute();
+            s.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } 	
+	}
+	
+	public void deletePonto(int codigo) {
+		try {
+            String sql = Queries.DELETE_PONTO; 
+           
+            PreparedStatement s = dbConn.prepareStatement(sql);      
+            s.setInt(1, codigo);
             s.execute();
             s.close();
         } catch (SQLException e) {
