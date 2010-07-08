@@ -13,7 +13,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 public class GeoDengue implements EntryPoint {
 
 	public void onModuleLoad() {
-		MapWidget mapWiget = new MapWidget(LatLng.newInstance(-7.22, -35.88), 15);
+		MapWidget mapWiget = new MapWidget(LatLng.newInstance(-7.230336339539009, -35.88109016418457), 15);
 		mapWiget.setSize("500px","300px");
 
 	    mapWiget.addControl(new SmallMapControl());
