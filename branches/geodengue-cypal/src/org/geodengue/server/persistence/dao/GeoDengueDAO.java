@@ -28,6 +28,10 @@ public interface GeoDengueDAO {
 	
 	public double getAgenteRotaLength(int mat);
 	
+	public List<Ponto> getAllPontos();
+	
+	public List<Agente> getAllAgentes();
+	
 	public List<Point> getPointsInsidePolygon(Polygon polygon);
 	
 	public void deleteAgente(int mat);

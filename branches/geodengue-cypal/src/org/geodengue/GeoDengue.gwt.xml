@@ -13,6 +13,9 @@
 
 	<!-- Specify the app entry point class.                   -->
 	<entry-point class='org.geodengue.client.GeoDengue'/>
+	
+	<!-- Inherit the core GWT-EXT -->
+	<inherits name="com.gwtext.GwtExt"/>
   
   	<inherits name="com.google.gwt.user.theme.standard.Standard"/>
   	<!-- <inherits name="com.google.gwt.user.theme.chrome.Chrome"/> -->

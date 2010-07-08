@@ -70,6 +70,14 @@ public class PersistenceFacade {
 	public double getAgenteRotaLength(int mat) {
 		return this.dao.getAgenteRotaLength(mat);
 	}
+	
+	public List<Ponto> getAllPontos() {
+		return this.dao.getAllPontos();
+	}
+	
+	public List<Agente> getAllAgentes() {
+		return this.dao.getAllAgentes();
+	}
 
 	public List<Point> getPointsInsidePolygon(Polygon polygon) {
 		return this.dao.getPointsInsidePolygon(polygon);

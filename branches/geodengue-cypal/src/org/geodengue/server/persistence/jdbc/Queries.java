@@ -78,6 +78,12 @@ public interface Queries {
 	public static final String QUERY_8 = " SELECT length(a.rota) " +
 										   " FROM agente a " +
 										   " WHERE a.matricula = ? ";
+
+	public static final String GET_ALL_PONTOS = " SELECT p.*" +
+										   " FROM ponto p";
+	
+	public static final String GET_ALL_AGENTES = " SELECT a.*" +
+	   									   " FROM agente a";
 	
 	/**
 	 * Recupera os pontos que então dentro de uma geometria dada

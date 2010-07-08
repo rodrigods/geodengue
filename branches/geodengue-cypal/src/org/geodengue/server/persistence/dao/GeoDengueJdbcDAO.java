@@ -262,6 +262,62 @@ public class GeoDengueJdbcDAO implements GeoDengueDAO {
         } 	
 		return length;
 	}
+	
+	public List<Ponto> getAllPontos() {
+		List<Ponto> pontos = new ArrayList<Ponto>();
+		try {
+            String sql = Queries.GET_ALL_PONTOS; 
+           
+            PreparedStatement s = dbConn.prepareStatement(sql);      
+            
+            ResultSet rs = s.executeQuery();
+            while(rs.next()){
+            	Ponto p = new Ponto();
+            	
+            	String type = rs.getString(2);
+           		p.setType(PontoType.valueOf(type));
+
+           		p.setDescricao(rs.getString(3));
+           		
+           		PGgeometry pg = (PGgeometry)(rs.getObject(4));
+           		p.setGeometria(getPointByPGgeometry(pg));
+           		
+           		pontos.add(p);
+            }
+            s.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } 	
+        
+		return pontos;
+	}
+	
+	public List<Agente> getAllAgentes() {
+		List<Agente> agentes = new ArrayList<Agente>();
+		try {
+            String sql = Queries.GET_ALL_AGENTES; 
+           
+            PreparedStatement s = dbConn.prepareStatement(sql);      
+            
+            ResultSet rs = s.executeQuery();
+            while(rs.next()){
+            	Agente a = new Agente();
+            	
+            	a.setMatricula(rs.getInt(2));
+            	a.setNome(rs.getString(3));
+           		
+           		PGgeometry pg = (PGgeometry)(rs.getObject(4));
+//           		p.setGeometria(getPointByPGgeometry(pg));
+           		
+           		agentes.add(a);
+            }
+            s.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } 	
+        
+		return agentes;
+	}
 
 	public List<Point> getPointsInsidePolygon(Polygon polygon) {
 		List<Point> pontos = new ArrayList<Point>();
