@@ -1,0 +1,21 @@
+<module>
+ 	<!-- Added by projectCreator if you use the -addModule argument -->
+	<inherits name="com.google.gwt.maps.GoogleMaps"/>
+	
+	<!--
+		Set the 'sensor' parameter to true if your app makes use of an onboard
+		positioning sensor, such as a GPS reciever.
+	-->
+	<script src="http://maps.google.com/maps?gwt=1&amp;file=api&amp;v=2&amp;sensor=false"/>
+	
+	<!-- Inherit the core Web Toolkit stuff.                  -->
+	<inherits name='com.google.gwt.user.User'/>
+
+	<!-- Specify the app entry point class.                   -->
+	<entry-point class='org.geodengue.client.GeoDengue'/>
+  
+  	<inherits name="com.google.gwt.user.theme.standard.Standard"/>
+  	<!-- <inherits name="com.google.gwt.user.theme.chrome.Chrome"/> -->
+  	<!-- <inherits name="com.google.gwt.user.theme.dark.Dark"/> -->
+  	
+</module>
