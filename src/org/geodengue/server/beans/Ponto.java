@@ -32,4 +32,8 @@ public class Ponto {
 	public String getDescricao() {
 		return descricao;
 	}
+	
+	public boolean isFoco() {
+		return this.type.equals(PontoType.FOCO);
+	}
 }
